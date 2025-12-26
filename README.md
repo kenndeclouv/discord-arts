@@ -26,7 +26,8 @@ npm i discord-arts@latest
 
 ## 📌 What's New
 
-- ✨ **23+ New Customization Options** - Comprehensive control over every aspect
+- 🎊 **NEW: Welcome Banner Generator** - Beautiful welcome/goodbye banners!
+- ✨ **25+ New Customization Options** - Comprehensive control over every aspect
 - 🎨 Typography Controls - Custom fonts, sizes, shadows, and strokes
 - 🏅 Enhanced Rank System - Hide/show elements, custom prefixes, percentage display
 - 🎯 Badge Positioning - Place badges anywhere (top/bottom, left/right)
@@ -46,6 +47,36 @@ Generate a profile image card for a user or bot, including badges and custom opt
 ![Default Profile Image](https://i.imgur.com/TWf8v1G.png)
 
 **Returns:** Promise<Buffer>
+
+### 🎊 welcomeBanner(userId, welcomeOptions?)
+
+Generate a beautiful welcome or goodbye banner with centered avatar and custom text.
+
+**Returns:** Promise<Buffer>
+
+#### welcomeOptions
+
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| customWidth | number | Canvas width in pixels | 1024 |
+| customHeight | number | Canvas height in pixels | 500 |
+| customBackground | string | Background image (path or URL) | User banner/avatar |
+| backgroundBlur | number | Blur amount for background | 3 |
+| backgroundBrightness | number | Brightness adjustment (-100 to 100) | 0 |
+| overlayColor | string | Color overlay on background (rgba/hex) | rgba(0,0,0,0.4) |
+| avatarSize | number | Avatar diameter in pixels | 200 |
+| avatarBorder | object | Avatar border `{ width: number, color: string }` | { width: 8, color: '#FFFFFF' } |
+| avatarY | number | Avatar Y position offset | 80 |
+| welcomeText | string | Main text (e.g., "WELCOME", "GOODBYE") | WELCOME |
+| customUsername | string | Override username display | User's display name |
+| customFont | string | Font family | Helvetica |
+| customFontSize | number | Manual font size override | 80 |
+| customUsernameSize | number | Manual username font size override | 40 |
+| welcomeColor | string | Welcome text color (HEX) | #FFFFFF |
+| usernameColor | string | Username text color (HEX) | #FFFFFF |
+| textShadow | boolean | Enable text shadow | true |
+| textStroke | object | Text outline `{ width: number, color: string }` | - |
+| type | string | Banner type ('welcome' \| 'goodbye') | welcome |
 
 #### imgOptions
 
@@ -127,6 +158,8 @@ Generate a profile image card for a user or bot, including badges and custom opt
 
 ## 📃 Code Example (Discord.js v14)
 
+### Profile Image
+
 ```javascript
 const { AttachmentBuilder } = require('discord.js');
 const { profileImage } = require('discord-arts');
@@ -141,6 +174,43 @@ const buffer = await profileImage(user.id, {
 });
 
 interaction.followUp({ files: [buffer] });
+```
+
+### Welcome Banner
+
+```javascript
+const { AttachmentBuilder } = require('discord.js');
+const { welcomeBanner } = require('discord-arts');
+
+// Basic welcome banner
+client.on('guildMemberAdd', async (member) => {
+  const buffer = await welcomeBanner(member.id);
+  
+  const attachment = new AttachmentBuilder(buffer, { name: 'welcome.png' });
+  const welcomeChannel = member.guild.channels.cache.get('CHANNEL_ID');
+  
+  welcomeChannel.send({ 
+    content: `Welcome to the server, ${member}!`,
+    files: [attachment] 
+  });
+});
+
+// Custom styled welcome banner
+const buffer = await welcomeBanner(user.id, {
+  customBackground: 'https://i.imgur.com/yourimage.png',
+  welcomeText: 'BIENVENUE', // French welcome
+  welcomeColor: '#FFD700',
+  usernameColor: '#FFFFFF',
+  avatarBorder: { width: 10, color: '#FFD700' },
+  backgroundBlur: 5,
+});
+
+// Goodbye banner
+const buffer = await welcomeBanner(user.id, {
+  type: 'goodbye',
+  welcomeColor: '#FF6B6B',
+  overlayColor: 'rgba(0, 0, 0, 0.6)',
+});
 ```
 
 ## 🎨 Advanced Examples

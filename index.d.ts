@@ -82,9 +82,42 @@ interface profileOptions {
 	customHeight?: number;
 }
 
+interface welcomeOptions {
+	// Dimensions
+	customWidth?: number;
+	customHeight?: number;
+	// Background
+	customBackground?: string;
+	backgroundBlur?: number;
+	backgroundBrightness?: number;
+	overlayColor?: string;
+	// Avatar
+	avatarSize?: number;
+	avatarBorder?: borderStyle;
+	avatarY?: number;
+	// Text
+	welcomeText?: string;
+	customUsername?: string;
+	customFont?: string;
+	welcomeColor?: string;
+	usernameColor?: string;
+	textShadow?: boolean;
+	textStroke?: borderStyle;
+
+	customFontSize?: number;
+	customUsernameSize?: number;
+	// Layout
+	type?: 'welcome' | 'goodbye';
+}
+
 declare module 'discord-arts' {
 	export function profileImage(
 		user: string,
 		options?: profileOptions,
+	): Promise<Buffer>;
+
+	export function welcomeBanner(
+		user: string,
+		options?: welcomeOptions,
 	): Promise<Buffer>;
 }
