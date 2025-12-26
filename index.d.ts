@@ -7,15 +7,33 @@ type presenceStatus =
 	| 'streaming'
 	| 'phone';
 type borderAllign = 'horizontal' | 'vertical';
+type badgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+type xpBarStyle = 'rounded' | 'sharp' | 'capsule';
+type barGradientDirection = 'horizontal' | 'vertical' | 'radial';
+
+interface borderStyle {
+	width: number;
+	color: string;
+}
 
 interface rankOptions {
 	currentXp: number;
 	requiredXp: number;
 	level: number;
 	rank?: number;
-	barColor?: string;
+	barColor?: string | string[];
 	levelColor?: string;
 	autoColorRank?: boolean;
+	// New rank/level options
+	rankColor?: string;
+	rankPrefix?: string;
+	hideRank?: boolean;
+	hideLevel?: boolean;
+	showPercentage?: boolean;
+	xpBarHeight?: number;
+	xpBarStyle?: xpBarStyle;
+	barGradientDirection?: barGradientDirection;
+	barBorder?: borderStyle;
 }
 
 interface profileOptions {
@@ -42,6 +60,26 @@ interface profileOptions {
 	localDateType?: string;
 	removeAvatarFrame?: boolean;
 	rankData?: rankOptions;
+	// New typography options
+	customFont?: string;
+	usernameSize?: number;
+	tagSize?: number;
+	textShadow?: boolean;
+	textStroke?: borderStyle;
+	// New badge options
+	badgePosition?: badgePosition;
+	badgeSpacing?: number;
+	badgeOpacity?: number;
+	badgeScale?: number;
+	// New visual effects
+	avatarBorder?: borderStyle;
+	overlayColor?: string;
+	// New layout options
+	hideDate?: boolean;
+	multilineSubtitle?: string[];
+	// Custom canvas dimensions
+	customWidth?: number;
+	customHeight?: number;
 }
 
 declare module 'discord-arts' {

@@ -26,6 +26,12 @@ npm i discord-arts@latest
 
 ## 📌 What's New
 
+- ✨ **23+ New Customization Options** - Comprehensive control over every aspect
+- 🎨 Typography Controls - Custom fonts, sizes, shadows, and strokes
+- 🏅 Enhanced Rank System - Hide/show elements, custom prefixes, percentage display
+- 🎯 Badge Positioning - Place badges anywhere (top/bottom, left/right)
+- 📊 Advanced XP Bars - Custom heights, styles (rounded/sharp/capsule), borders
+- 🌈 Gradient Control - Vertical, horizontal, or radial XP bar gradients
 - 🖼️ Avatar decorations/frames
 - 🎴 Automatic profile theme colors
 - 🔮 Booster badges are back
@@ -43,42 +49,81 @@ Generate a profile image card for a user or bot, including badges and custom opt
 
 #### imgOptions
 
-| Option | Type | Description |
-|--------|------|-------------|
-| customUsername | string | Customize the username |
-| customTag | string | Text below the user |
-| customSubtitle | string | Text below the custom tag |
-| customBadges | string[] | Your own png badges (path and URL) (46x46) |
-| customBackground | string | Change the background to any image (path and URL) (885x303) |
-| overwriteBadges | boolean | Merge your badges with the discord defaults |
-| badgesFrame | boolean | Creates a small frame behind the badges |
-| removeBadges | boolean | Removes badges, whether custom or from discord |
-| removeBorder | boolean | Removes the image border, custom and normal |
-| usernameColor | string | Username HEX color |
-| tagColor | string | Tag HEX color |
-| borderColor | string \| string[] | Border HEX color, can be gradient if 2 colors are used |
-| borderAllign | string | Gradient alignment if 2 colors are used |
-| disableProfileTheme | boolean | Disable the discord profile theme colors |
-| presenceStatus | string | User status to be displayed below the avatar |
-| squareAvatar | boolean | Change avatar shape to a square |
-| removeAvatarFrame | boolean | Remove the discord avatar frame/decoration (if any) |
-| rankData | object | Rank data options (see below) |
-| moreBackgroundBlur | boolean | Triples blur of background image |
-| backgroundBrightness | number | Set brightness of background from 1-100% |
-| customDate | Date \| string | Custom date or text to use instead of when user joined Discord |
-| localDateType | string | Local format for the date, e.g. 'en' \| 'es' etc. |
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| customUsername | string | Customize the username | - |
+| customTag | string | Text below the user | - |
+| customSubtitle | string | Text below the custom tag | - |
+| multilineSubtitle | string[] | Multiple lines of subtitle text | - |
+| customBadges | string[] | Your own png badges (path and URL) (46x46) | - |
+| customBackground | string | Change the background to any image (path and URL) (885x303) | - |
+| overwriteBadges | boolean | Merge your badges with the discord defaults | false |
+| badgesFrame | boolean | Creates a small frame behind the badges | false |
+| removeBadges | boolean | Removes badges, whether custom or from discord | false |
+| removeBorder | boolean | Removes the image border, custom and normal | false |
+| usernameColor | string | Username HEX color | #FFFFFF |
+| tagColor | string | Tag HEX color | #dadada |
+| borderColor | string \| string[] | Border HEX color, can be gradient if 2 colors are used | - |
+| borderAllign | string | Gradient alignment if 2 colors are used ('horizontal'\|'vertical') | horizontal |
+| disableProfileTheme | boolean | Disable the discord profile theme colors | false |
+| presenceStatus | string | User status to be displayed ('online'\|'idle'\|'dnd'\|'offline'\|'invisible'\|'streaming'\|'phone') | - |
+| squareAvatar | boolean | Change avatar shape to a square | false |
+| removeAvatarFrame | boolean | Remove the discord avatar frame/decoration (if any) | false |
+| rankData | object | Rank data options (see below) | - |
+| moreBackgroundBlur | boolean | Triples blur of background image | false |
+| backgroundBrightness | number | Set brightness of background from 1-100% | - |
+| overlayColor | string | Custom overlay color on background (rgba/hex) | rgba(42,45,51,0.2) |
+| customDate | Date \| string | Custom date or text to use instead of when user joined Discord | - |
+| localDateType | string | Local format for the date, e.g. 'en' \| 'es' etc. | - |
+| hideDate | boolean | Hide the creation date display | false |
+| customWidth | number | Custom canvas width in pixels | 885 |
+| customHeight | number | Custom canvas height in pixels | 303 |
+
+#### Typography Options
+
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| customFont | string | Font family override | Helvetica |
+| usernameSize | number | Manual username font size override | auto-calculated |
+| tagSize | number | Tag font size override | 60 |
+| textShadow | boolean | Enable text shadow for readability | false |
+| textStroke | object | Text outline `{ width: number, color: string }` | - |
+
+#### Badge Customization
+
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| badgePosition | string | Badge placement ('top-right'\|'top-left'\|'bottom-right'\|'bottom-left') | top-right |
+| badgeSpacing | number | Gap between badges in pixels | 59 |
+| badgeOpacity | number | Badge transparency (0.0-1.0) | 1.0 |
+| badgeScale | number | Badge size multiplier (0.5-2.0) | 1.0 |
+
+#### Visual Effects
+
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| avatarBorder | object | Border around avatar `{ width: number, color: string }` | - |
 
 #### rankData Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| currentXp | number | Current user XP |
-| requiredXp | number | XP required to level up |
-| level | number | Current user level |
-| rank | number | Position on the leaderboard |
-| barColor | string | HEX XP bar color |
-| levelColor | string | HEX color of LVL text |
-| autoColorRank | boolean | Whether to color ranks as medal colors for 1st, 2nd, 3rd |
+| Option | Type | Description | Default |
+|--------|------|-------------|---------|
+| currentXp | number | Current user XP (required) | - |
+| requiredXp | number | XP required to level up (required) | - |
+| level | number | Current user level (required) | - |
+| rank | number | Position on the leaderboard | - |
+| barColor | string \| string[] | HEX XP bar color, can be gradient | - |
+| levelColor | string | HEX color of LVL text | #dadada |
+| autoColorRank | boolean | Color ranks as medals for 1st, 2nd, 3rd | false |
+| rankColor | string | Custom rank color (overrides autoColorRank) | #dadada |
+| rankPrefix | string | Custom rank prefix instead of "RANK" | RANK |
+| hideRank | boolean | Hide rank display | false |
+| hideLevel | boolean | Hide level display | false |
+| showPercentage | boolean | Display XP percentage on bar | false |
+| xpBarHeight | number | Custom bar thickness in pixels | 36 |
+| xpBarStyle | string | Bar corner style ('rounded'\|'sharp'\|'capsule') | rounded |
+| barGradientDirection | string | Gradient flow ('horizontal'\|'vertical'\|'radial') | horizontal |
+| barBorder | object | Border around XP bar `{ width: number, color: string }` | - |
 
 ## 📃 Code Example (Discord.js v14)
 
@@ -96,6 +141,107 @@ const buffer = await profileImage(user.id, {
 });
 
 interaction.followUp({ files: [buffer] });
+```
+
+## 🎨 Advanced Examples
+
+### Enhanced Rank Card with New Features
+
+```javascript
+profileImage('UserID', {
+  customBadges: ['./skull.png', './rocket.png', './crown.png'],
+  presenceStatus: 'phone',
+  badgesFrame: true,
+  customDate: 'AWESOME!',
+  moreBackgroundBlur: true,
+  backgroundBrightness: 100,
+  // New typography options
+  customFont: 'Arial',
+  textShadow: true,
+  avatarBorder: { width: 5, color: '#ff6b6b' },
+  // Enhanced badge control
+  badgePosition: 'bottom-right',
+  badgeOpacity: 0.9,
+  // Advanced rank customization
+  rankData: {
+    currentXp: 2100,
+    requiredXp: 3000,
+    rank: 1,
+    level: 20,
+    barColor: ['#fcdce1', '#ada8c6'], // Gradient
+    barGradientDirection: 'vertical',
+    levelColor: '#ada8c6',
+    autoColorRank: true,
+    showPercentage: true,
+    xpBarHeight: 40,
+    xpBarStyle: 'capsule',
+    rankPrefix: 'Position'
+  }
+});
+```
+
+### Typography & Text Styling
+
+```javascript
+profileImage('UserID', {
+  customFont: 'Comic Sans MS',
+  usernameSize: 90,
+  tagSize: 50,
+  textShadow: true,
+  textStroke: { width: 3, color: '#000000' },
+  multilineSubtitle: ['Premium Member', 'Since 2020', '⭐ VIP Status']
+});
+```
+
+### Badge Customization
+
+```javascript
+profileImage('UserID', {
+  customBadges: ['./badge1.png', './badge2.png'],
+  badgePosition: 'bottom-left', // or 'top-left', 'bottom-right'
+  badgeSpacing: 70,
+  badgeScale: 1.5,
+  badgeOpacity: 0.8
+});
+```
+
+### Advanced XP Bar Styling
+
+```javascript
+profileImage('UserID', {
+  rankData: {
+    currentXp: 1500,
+    requiredXp: 2000,
+    level: 15,
+    rank: 3,
+    hideRank: false,
+    hideLevel: false,
+    showPercentage: true,
+    rankColor: '#00ff00',
+    rankPrefix: 'Rank',
+    barColor: ['#ff0000', '#00ff00', '#0000ff'],
+    barGradientDirection: 'horizontal',
+    xpBarHeight: 50,
+    xpBarStyle: 'sharp',
+    barBorder: { width: 2, color: '#ffffff' }
+  }
+});
+```
+
+### Custom Canvas Dimensions
+
+```javascript
+profileImage('UserID', {
+  customWidth: 1770,  // Double width (2x scale)
+  customHeight: 606,  // Double height (2x scale)
+  // All elements scale proportionally
+  rankData: {
+    currentXp: 1000,
+    requiredXp: 2000,
+    level: 10,
+    rank: 5
+  }
+});
 ```
 
 ## Example Results
