@@ -443,9 +443,10 @@ function genXpBar(options) {
 	ctx.fill();
 	ctx.globalAlpha = 1;
 
-	const rankString = !Number.isNaN(rank)
-		? `RANK #${abbreviateNumber(isNumber(rank, 'rankData:rank'))}`
-		: '';
+	const rankString =
+		rank !== undefined && !Number.isNaN(rank)
+			? `RANK #${abbreviateNumber(isNumber(rank, 'rankData:rank'))}`
+			: '';
 	const lvlString = !Number.isNaN(level)
 		? `Lvl ${abbreviateNumber(isNumber(level, 'rankData:level'))}`
 		: '';
