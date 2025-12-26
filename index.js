@@ -1,3 +1,3 @@
 module.exports = {
-  profileImage: require('./src/cards/profile-image'),
+	profileImage: require('./src/cards/profile-image'),
 };

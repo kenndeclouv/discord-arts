@@ -1,40 +1,40 @@
 function parseUsername(username, ctx, font, size, maxLength) {
-  username = username && username.replace(/\s/g, '') ? username : '?????'
-  let usernameChars = username.split('');
-  let editableUsername = '';
-  let finalUsername = '';
+	username = username?.replace(/\s/g, '') ? username : '?????';
+	const usernameChars = username.split('');
+	let editableUsername = '';
+	let finalUsername = '';
 
-  let newSize = +size;
-  let textLength;
+	let newSize = +size;
+	let textLength;
 
-  let finalized = false;
+	let finalized = false;
 
-  while (!finalized) {
-    editableUsername = usernameChars.join('');
+	while (!finalized) {
+		editableUsername = usernameChars.join('');
 
-    ctx.font = `${newSize}px ${font}`;
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#FFFFFF';
+		ctx.font = `${newSize}px ${font}`;
+		ctx.textAlign = 'left';
+		ctx.fillStyle = '#FFFFFF';
 
-    const actualLength = ctx.measureText(editableUsername).width;
+		const actualLength = ctx.measureText(editableUsername).width;
 
-    if (actualLength >= maxLength) {
-      if (newSize > 60) newSize -= 1;
-      else usernameChars.pop();
-    }
+		if (actualLength >= maxLength) {
+			if (newSize > 60) newSize -= 1;
+			else usernameChars.pop();
+		}
 
-    if (actualLength <= maxLength) {
-      finalUsername = usernameChars.join('');
-      textLength = actualLength;
-      finalized = true;
-    }
-  }
+		if (actualLength <= maxLength) {
+			finalUsername = usernameChars.join('');
+			textLength = actualLength;
+			finalized = true;
+		}
+	}
 
-  return {
-    username: finalUsername,
-    newSize,
-    textLength,
-  };
+	return {
+		username: finalUsername,
+		newSize,
+		textLength,
+	};
 }
 
 /**
@@ -44,17 +44,17 @@ function parseUsername(username, ctx, font, size, maxLength) {
  * At the moment, this method intentionally avoids number rounding, for simplicity.
  */
 function getFirstDigitsAsDecimal(numString) {
-  const digits = ((numString.length - 1) % 3) + 1;
-  if (numString.length < 4) {
-    return numString;
-  }
+	const digits = ((numString.length - 1) % 3) + 1;
+	if (numString.length < 4) {
+		return numString;
+	}
 
-  const decimal = numString.slice(digits, digits + 1);
-  return `${numString.slice(0, digits)}${
-    decimal == '0' || decimal == '00' || digits == 3
-      ? ''
-      : `.${decimal.replace(/0$/g, '')}`
-  }`;
+	const decimal = numString.slice(digits, digits + 1);
+	return `${numString.slice(0, digits)}${
+		decimal === '0' || decimal === '00' || digits === 3
+			? ''
+			: `.${decimal.replace(/0$/g, '')}`
+	}`;
 }
 
 /**
@@ -73,50 +73,58 @@ function getFirstDigitsAsDecimal(numString) {
  * This supports all numbers nearly up to a googol (100 zeroes), supporting up to 92 zeroes or 93 digits.
  */
 function abbreviateNumber(number) {
-  const numString = `${number}`;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const abbreviations = ['', 'K', 'M', 'B', 'T'].concat(
-    new Array(letters.length).fill('AA').map((_, i) => letters[i].repeat(2))
-  );
+	const numString = `${number}`;
+	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const abbreviations = ['', 'K', 'M', 'B', 'T'].concat(
+		new Array(letters.length).fill('AA').map((_, i) => letters[i].repeat(2)),
+	);
 
-  const selectedAbbr =
-    abbreviations[Math.floor((numString.length - 1) / 3)] ?? '??';
-  return `${getFirstDigitsAsDecimal(numString)}${selectedAbbr}`;
+	const selectedAbbr =
+		abbreviations[Math.floor((numString.length - 1) / 3)] ?? '??';
+	return `${getFirstDigitsAsDecimal(numString)}${selectedAbbr}`;
 }
 
 const getDateOrString = (dateInput, createdTimestamp, localDateType = 'en') => {
-  const dateOptions = {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  };
-  
-  const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
+	const dateOptions = {
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric',
+	};
 
-  if (typeof dateInput === 'string') {
-    if (iso8601Regex.test(dateInput)) {
-      const dateInstance = new Date(dateInput);
-      return dateInstance.toLocaleDateString(localDateType, dateOptions);
-    } else {
-      return dateInput;
-    }
-  } else if (dateInput instanceof Date) {
-    return dateInput.toLocaleDateString(localDateType, dateOptions);
-  } else if (dateInput === undefined || dateInput === null) {
-    return new Date(+createdTimestamp).toLocaleDateString(localDateType, dateOptions);
-  }
+	const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
+
+	if (typeof dateInput === 'string') {
+		if (iso8601Regex.test(dateInput)) {
+			const dateInstance = new Date(dateInput);
+			return dateInstance.toLocaleDateString(localDateType, dateOptions);
+		} else {
+			return dateInput;
+		}
+	} else if (dateInput instanceof Date) {
+		return dateInput.toLocaleDateString(localDateType, dateOptions);
+	} else if (dateInput === undefined || dateInput === null) {
+		return new Date(+createdTimestamp).toLocaleDateString(
+			localDateType,
+			dateOptions,
+		);
+	}
 };
 
 function truncateText(text, limit = 25, fromEnd = false) {
-  if (text.length > limit) {
-    if (fromEnd) {
-      return "..." + text.slice(-limit);
-    } else {
-      return text.slice(0, limit) + "...";
-    }
-  } else {
-    return text;
-  }
+	if (text.length > limit) {
+		if (fromEnd) {
+			return `...${text.slice(-limit)}`;
+		} else {
+			return `${text.slice(0, limit)}...`;
+		}
+	} else {
+		return text;
+	}
 }
 
-module.exports = { parseUsername, abbreviateNumber, getDateOrString, truncateText };
+module.exports = {
+	parseUsername,
+	abbreviateNumber,
+	getDateOrString,
+	truncateText,
+};

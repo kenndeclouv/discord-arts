@@ -1,7 +1,3 @@
-class DiscordArtsError extends Error {
-  constructor(message) {
-    super(message);
-  }
-}
+class DiscordArtsError extends Error {}
 
 module.exports = DiscordArtsError;
